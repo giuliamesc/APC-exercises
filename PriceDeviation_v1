@@ -19,7 +19,7 @@ int main (void)
     double deviations[MAXDIM]={};
 
     while (cin && cont<MAXDIM) {
-        int price;
+        double price;
         cout << "Input prices" << endl;
         cin >> price;
         prices[cont]=price;
