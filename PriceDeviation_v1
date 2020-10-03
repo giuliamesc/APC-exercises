@@ -15,7 +15,7 @@ int main (void)
 {
     unsigned cont=0;
     double sum=0;
-    unsigned prices[MAXDIM]={};
+    double prices[MAXDIM]={};
     double deviations[MAXDIM]={};
 
     while (cin && cont<MAXDIM) {
@@ -27,11 +27,12 @@ int main (void)
         cont++;
     }
     cout << "The sum is " << sum << endl;
-    double mean = sum/cont;
-    cout << "The mean is " << mean << endl;
 
     if (cont!= 0)
     {
+       double mean = sum/cont;
+       cout << "The mean is " << mean << endl;
+
        cout << endl << setw(20) << "Prices" << setw(40) << "Deviation from the mean" << endl;
 
        for (unsigned i = 0; i < cont-1; ++i)
@@ -42,4 +43,5 @@ int main (void)
     }
 
     return 0;
+
 }
