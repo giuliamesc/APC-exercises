@@ -1,0 +1,70 @@
+// Price deviation evaluation v4
+
+#include<iostream>
+#include<iomanip>
+
+using std::cout;
+using std::cin;
+using std::endl;
+using std::setw;
+
+const unsigned NZONES = 3;
+const unsigned MAXDIM = 5;
+
+
+void get_prices (unsigned nums[], double sums[], double prices[][MAXDIM]);
+void evaluate_deviations (const unsigned nums[], const double sums[], const double prices[][MAXDIM]);
+
+int main (void) {
+unsigned nums[NZONES]={};
+double sums[NZONES]={};
+double prices[NZONES][MAXDIM]={};
+get_prices(nums,sums,prices);
+evaluate_deviations(nums,sums,prices);
+return 0;
+}
+
+void get_prices (unsigned nums[], double sums[], double prices[][MAXDIM])
+{
+    bool stop = false;
+
+    while (! stop)
+    {
+        double price;
+        unsigned zone;
+        cout  << "Input price: ";
+        cin >> price;
+        cout  << "Input zone: ";
+        cin >> zone;
+
+        if (! cin || zone >= NZONES)
+            stop = true;
+        else
+        {
+            prices[zone][nums[zone]++] = price;
+            sums[zone] += price;
+
+            if (nums[zone] >= MAXDIM)
+                stop = true;
+        }
+    }
+
+    cout << "Exit input loop" << endl;
+}
+
+void evaluate_deviations (const unsigned nums[], const double sums[], const double prices[][MAXDIM]){
+    for (unsigned i=0; i<NZONES; i++){
+        if (nums[i]!=0){
+            double mean = sums[i]/nums[i];
+            cout << "mean in zone " << i << " = " << mean << endl;
+            cout << endl << setw(20) << "Prices (" << i << ")"
+                 << setw(40) << "Deviation from the mean (" << i << ")" << endl;
+            for (unsigned j=0; j<nums[i]; j++){
+                double deviation = prices[i][j]-mean;
+                cout << setw(20) << prices[i][j] << setw(20) << deviation << endl;
+            }
+        }
+        else cout << "No prices from zone " << i << endl;
+    }
+
+}
