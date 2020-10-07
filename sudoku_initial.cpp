@@ -70,8 +70,8 @@ int search_key (const unsigned v[], unsigned n_elements, unsigned key)
 }
 
 int basic_search(const unsigned v[], unsigned n_elements){
-    for (unsigned i=1; i<=SIZE; i++){
-        int found= search_key(v,SIZE,i);
+    for (unsigned i=1; i<=n_elements; i++){
+        int found= search_key(v,n_elements,i);
         if(found!=1) return 0;
     }
     return 1;
