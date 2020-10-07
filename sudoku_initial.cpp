@@ -84,9 +84,9 @@ int check_rows(const unsigned sudoku[][SIZE]){
             row[j]=sudoku[i][j];
         }
     int res=basic_search(row,SIZE);
-    if (res==0) return -1;
+    if (res==0) return 0;
     }
-    return 0;
+    return 1;
 }
 
 int check_cols(const unsigned sudoku[][SIZE]){
@@ -96,9 +96,9 @@ int check_cols(const unsigned sudoku[][SIZE]){
             col[j]=sudoku[j][i];
         }
         int res=basic_search(col,SIZE);
-        if (res==0) return -2;
+        if (res==0) return 0;
     }
-    return 0;
+    return 1;
 }
 
 int check_regions(const unsigned sudoku[][SIZE]) {
@@ -107,18 +107,18 @@ int check_regions(const unsigned sudoku[][SIZE]) {
                     unsigned reg[SIZE] = {sudoku[i - 1][j - 1], sudoku[i - 1][j], sudoku[i - 1][j + 1], sudoku[i][j - 1], sudoku[i][j],
                            sudoku[i][j + 1], sudoku[i + 1][j - 1], sudoku[i + 1][j], sudoku[i + 1][j + 1]};
                     int res = basic_search(reg, SIZE);
-                    if (res == 0) return -3;
+                    if (res == 0) return 0;
                 }
             }
-    return 0;
+    return 1;
 }
 
 int check_sudoku(const unsigned sudoku[][SIZE])
 {
-   if (check_rows(sudoku)!=0) return -1;
-   if (check_cols(sudoku)!=0) return -2;
-   if (check_regions(sudoku)!=0) return -3;
-   else return 0;
+   if (check_rows(sudoku)!=1) return -1;
+   if (check_cols(sudoku)!=1) return -2;
+   if (check_regions(sudoku)!=1) return -3;
+   else return 1;
 }
 
 void generate_sudoku(unsigned sudoku[][SIZE])
