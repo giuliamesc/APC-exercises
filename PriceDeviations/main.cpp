@@ -1,4 +1,4 @@
-// Price deviation evaluation v1
+// Price deviation evaluation v2
 
 #include <iostream>
 #include <iomanip>
@@ -11,45 +11,79 @@ using std::setw;
 
 int main (void)
 {
-    const unsigned MAXDIM = 100;
+    const unsigned MAXDIM = 3;
+    const char CENTER = 'c';
+    const char SUBURB = 's';
 
-    double prices[MAXDIM];
-    unsigned num = 0;
-    double sum = 0.;
+    double pricesC[MAXDIM];
+    double pricesS[MAXDIM];
+    unsigned numC = 0;
+    unsigned numS = 0;
+    double sumC = 0.;
+    double sumS = 0.;
     bool exit = false;
 
     while (! exit)
     {
         double price;
+        char zone;
         cout  << "Input price: ";
         cin >> price;
+        cout  << "Input zone: ";
+        cin >> zone;
 
-        if (! cin)// || num > MAXDIM)
+        if (! cin || (zone != CENTER && zone != SUBURB))
             exit = true;
         else
         {
-            prices[num++] = price;
-            sum += price;
+            if (zone == CENTER)
+            {
+                pricesC[numC++] = price;
+                sumC += price;
 
-            if (num >= MAXDIM)
-                exit = true;
+                if (numC >= MAXDIM)
+                    exit = true;
+            }
+            else
+            {
+                pricesS[numS++] = price;
+                sumS += price;
+
+                if (numS >= MAXDIM)
+                    exit = true;
+            }
         }
     }
 
     cout << "Exit input loop" << endl;
-    cout << "sum = " << sum << "; num = " << num << endl;
+    cout << "sumC = " << sumC << "; numC = " << numC << endl;
+    cout << "sumS = " << sumS << "; numS = " << numS << endl;
 
-    if (num != 0)
+    if (numC != 0)
     {
-        double mean = sum / num;
-        cout << "mean = " << mean << endl;
+        double mean = sumC / numC;
+        cout << "mean center = " << mean << endl;
 
-        cout << endl << setw(20) << "Prices" << setw(40) << "Deviation from the mean" << endl;
+        cout << endl << setw(20) << "Prices (center)" << setw(40) << "Deviation from the mean (center)" << endl;
 
-        for (unsigned i = 0; i < num; ++i)   // for (unsigned i = 1; i < num; ++i)
+        for (unsigned i = 0; i < numC; ++i)
         {
-            double deviation = prices[i] - mean;
-            cout << setw(20) << prices[i] << setw(20) << deviation << endl;
+            double deviation = pricesC[i] - mean;
+            cout << setw(20) << pricesC[i] << setw(20) << deviation << endl;
+        }
+    }
+
+    if (numS != 0)
+    {
+        double mean = sumS / numS;
+        cout << "mean suburb = " << mean << endl;
+
+        cout << endl << setw(20) << "Prices (suburb)" << setw(40) << "Deviation from the mean (suburb)" << endl;
+
+        for (unsigned i = 0; i < numS; ++i)
+        {
+            double deviation = pricesS[i] - mean;
+            cout << setw(20) << pricesS[i] << setw(20) << deviation << endl;
         }
     }
 
