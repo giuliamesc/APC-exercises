@@ -1,4 +1,4 @@
-// Price deviation evaluation v2
+// Price deviation evaluation v4
 
 #include <iostream>
 #include <iomanip>
@@ -8,84 +8,73 @@ using std::cin;
 using std::endl;
 using std::setw;
 
+const unsigned NZONES = 3;
+const unsigned MAXDIM = 5;
+
+
+void get_prices (unsigned nums[], double sums[], double prices[][MAXDIM]);
+void evaluate_deviations (const unsigned nums[], const double sums[], const double prices[][MAXDIM]);
+
 
 int main (void)
 {
-    const unsigned MAXDIM = 3;
-    const char CENTER = 'c';
-    const char SUBURB = 's';
+    double prices[NZONES][MAXDIM];
+    unsigned nums[NZONES] = {};
+    double sums[NZONES] = {};
 
-    double pricesC[MAXDIM];
-    double pricesS[MAXDIM];
-    unsigned numC = 0;
-    unsigned numS = 0;
-    double sumC = 0.;
-    double sumS = 0.;
-    bool exit = false;
+    get_prices(nums, sums, prices);
+    evaluate_deviations(nums, sums, prices);
 
-    while (! exit)
+    return 0;
+}
+
+
+void get_prices (unsigned nums[], double sums[], double prices[][MAXDIM])
+{
+    bool stop = false;
+
+    while (! stop)
     {
         double price;
-        char zone;
+        unsigned zone;
         cout  << "Input price: ";
         cin >> price;
         cout  << "Input zone: ";
         cin >> zone;
 
-        if (! cin || (zone != CENTER && zone != SUBURB))
-            exit = true;
+        if (! cin || zone >= NZONES)
+            stop = true;
         else
         {
-            if (zone == CENTER)
-            {
-                pricesC[numC++] = price;
-                sumC += price;
+            prices[zone][nums[zone]++] = price;
+            sums[zone] += price;
 
-                if (numC >= MAXDIM)
-                    exit = true;
-            }
-            else
-            {
-                pricesS[numS++] = price;
-                sumS += price;
-
-                if (numS >= MAXDIM)
-                    exit = true;
-            }
+            if (nums[zone] >= MAXDIM)
+                stop = true;
         }
     }
 
     cout << "Exit input loop" << endl;
-    cout << "sumC = " << sumC << "; numC = " << numC << endl;
-    cout << "sumS = " << sumS << "; numS = " << numS << endl;
+}
 
-    if (numC != 0)
+
+void evaluate_deviations (const unsigned nums[], const double sums[], const double prices[][MAXDIM])
+{
+    for (unsigned z = 0; z < NZONES; ++z)
     {
-        double mean = sumC / numC;
-        cout << "mean center = " << mean << endl;
-
-        cout << endl << setw(20) << "Prices (center)" << setw(40) << "Deviation from the mean (center)" << endl;
-
-        for (unsigned i = 0; i < numC; ++i)
+        if (nums[z] != 0)
         {
-            double deviation = pricesC[i] - mean;
-            cout << setw(20) << pricesC[i] << setw(20) << deviation << endl;
+            double mean = sums[z] / nums[z];
+            cout << "mean in zone " << z << " = " << mean << endl;
+
+            cout << endl << setw(20) << "Prices (" << z << ")"
+                 << setw(40) << "Deviation from the mean (" << z << ")" << endl;
+
+            for (unsigned i = 0; i < nums[z]; ++i)
+            {
+                double deviation = prices[z][i] - mean;
+                cout << setw(20) << prices[z][i] << setw(20) << deviation << endl;
+            }
         }
     }
-
-    if (numS != 0)
-    {
-        double mean = sumS / numS;
-        cout << "mean suburb = " << mean << endl;
-
-        cout << endl << setw(20) << "Prices (suburb)" << setw(40) << "Deviation from the mean (suburb)" << endl;
-
-        for (unsigned i = 0; i < numS; ++i)
-        {
-            double deviation = pricesS[i] - mean;
-            cout << setw(20) << pricesS[i] << setw(20) << deviation << endl;
-        }
-    }
-
-    return 0;
 }
