@@ -8,7 +8,7 @@ class Developer: public Employee {
 protected:
 
 const double wsh_rate = 8.0;
-unsigned wsh_hours;
+unsigned wsh_hours = 0;
 
 public:
 
