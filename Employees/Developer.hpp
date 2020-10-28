@@ -7,8 +7,8 @@ class Developer: public Employee {
 
 protected:
 
-const double wsh_rate = 8.0;
-unsigned wsh_hours = 0;
+    const double wsh_rate = 8.0;
+    unsigned wsh_hours = 0;
 
 public:
 
@@ -16,7 +16,7 @@ public:
             Employee(n, sn, id) {}
 
     double salary_cal (void) const override;
-    
+
     void set_wsh_hours(unsigned n);
 
 };

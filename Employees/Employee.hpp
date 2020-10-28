@@ -21,7 +21,7 @@ public:
 
     virtual double salary_cal(void) const = 0;
 
-    void set_work_hours (unsigned n) {}
+    void set_work_hours (unsigned n);
 
     void print (void) const
     {

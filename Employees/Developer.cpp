@@ -2,7 +2,7 @@
 
 double Developer::salary_cal (void) const
 {
-    // TODO: implement this method
+    return wsh_rate*wsh_hours+pay_rate*(work_hours-wsh_hours);
 }
 
 void Developer::set_wsh_hours(unsigned n)
