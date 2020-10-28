@@ -25,9 +25,12 @@ namespace travel_system
 
     bool private_vehicle::booking(unsigned seats)
     {
-        if (true)//TODO: check the proper conditions
+        if ( available && curr_num_passangers+seats <= capacity)
         {
-            // TODO: setup the vehicle usage
+            curr_num_passangers+=seats;
+            available = false;
+            std::cout << "booking successfull" << std::endl;
+            return true;
         }
         else
         {

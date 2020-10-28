@@ -9,9 +9,11 @@ namespace travel_system
 
     bool public_vehicle::booking (unsigned seats)
     {
-        if (true)// TODO: check the relevant conditions
+        if (curr_num_passangers + seats <= capacity)
         {
-            // TODO: book the vehicle
+            booked_seats = seats;
+            curr_num_passangers += seats;
+            return true;
         }
         else
         {
@@ -22,7 +24,7 @@ namespace travel_system
 
     double public_vehicle::cost (void) const
     {
-        // TODO: compute price
+        return ticket_price*booked_seats;
     }
 
     // Prints the ticket price as the cost info for public vehicles

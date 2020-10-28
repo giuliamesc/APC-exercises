@@ -25,7 +25,7 @@ namespace travel_system
 
         std::list<std::string> time_schedule;
         double ticket_price;
-        unsigned booked_seats = 0; //the number of booked seats
+        unsigned booked_seats = 0; //the number of booked seats per transaction
 
     };
 }

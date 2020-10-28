@@ -69,8 +69,13 @@ void read_from_stream (std::istream &is){
             if(vehicle_index != -1){
                 std::cout << "you have successfully booked a private vehicle" << std::endl;
 
-                // TODO: iterate X times calling the add_km() method, print the
-                // total cost and then call finish()
+                    travel_system::private_vehicle *pv = dynamic_cast<travel_system::private_vehicle *>(private_vehicles[vehicle_index]);
+
+                for(int i=1; i<10; i++)
+                    pv->add_km();
+
+                pv->finish();
+
 
                 break;
             }
@@ -103,7 +108,16 @@ int main(int argc, char const *argv[]) {
     //add them to the availability vectors
     private_vehicles.push_back(&c1);
     private_vehicles.push_back(&c2);
-    //TODO: add the other vehicle objects to their respective vectors
+    private_vehicles.push_back(&t1);
+    private_vehicles.push_back(&t2);
+    private_vehicles.push_back(&l1);
+    private_vehicles.push_back(&l2);
+
+    public_vehicles.push_back(&sh1);
+    public_vehicles.push_back(&b1);
+    public_vehicles.push_back(&m1);
+
+
 
     //use this for reading from console
     read_from_stream(std::cin);
