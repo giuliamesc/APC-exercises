@@ -7,9 +7,8 @@ class Developer: public Employee {
 
 protected:
 
-    // TODO: we need to differentiate work hours from workshop hours
-    // both activities will have corresponding (constant) pay rate, and the
-    // user needs to set hours for both activities independently
+const double wsh_rate = 8.0;
+unsigned wsh_hours;
 
 public:
 
@@ -17,6 +16,8 @@ public:
             Employee(n, sn, id) {}
 
     double salary_cal (void) const override;
+    
+    void set_wsh_hours(double n);
 
 };
 
