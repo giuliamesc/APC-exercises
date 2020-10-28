@@ -17,7 +17,7 @@ public:
 
     double salary_cal (void) const override;
     
-    void set_wsh_hours(double n);
+    void set_wsh_hours(unsigned n);
 
 };
 
