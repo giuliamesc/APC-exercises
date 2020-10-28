@@ -7,9 +7,8 @@ class Manager: public Employee {
 
 protected:
 
-    // TODO: we need to differentiate work hours from workshop or mission hours
-    // each activity will have corresponding (constant) pay rate, and the user
-    // needs to set hours for each activity independently
+    const double m_rate = 9.5;
+    unsigned m_hours = 0;
 
 public:
 
@@ -17,6 +16,8 @@ public:
             Employee(n, sn, id) {}
 
     double salary_cal (void) const override;
+    
+   void set_m_hours(unsigned n);
 
 };
 
