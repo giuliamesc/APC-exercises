@@ -3,5 +3,5 @@
 
 
 double Secretary::salary_cal (void) const {
-    // TODO: implement this method
+    return pay_rate*work_hours;
 }
