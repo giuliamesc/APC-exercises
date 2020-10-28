@@ -3,7 +3,7 @@
 
 #include "Employee.hpp"
 // TODO: is Employee the correct class to inherit from?
-class Manager: public Employee {
+class Manager: public Developer {
 
 protected:
 
