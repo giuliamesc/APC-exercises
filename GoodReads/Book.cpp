@@ -1,28 +1,55 @@
 //
-// Created by giuli on 15/11/2020.
+// Created by Danilo Ardagna on 13/07/2020.
 //
 
 #include "Book.h"
 
-float Book::compute_rating(){
-    unsigned sum_ratings=0;
-    for(unsigned i=0; i<5; i++){
-        sum_ratings+=(i+1)*ratings_distr[i];
-    }
-    avg_rating = sum_ratings/review_count;
+using std::cout;
+using std::endl;
+
+using std::string;
+using std::vector;
+
+Book::Book(unsigned pagesNumber, const string &pub,
+           const string &author, const string &title) :
+           pages_number(pagesNumber), publisher(pub), author(author), title(title) {
+
+    ratings_distr = vector<unsigned>(5,0);
+    review_count = 0;
+    avg_rating = 0.0;
 }
 
-void Book::to_string() const{
-
-    std::cout << "Title: " << title << std::endl;
-    std::cout << "Author: " << author << std::endl;
-    std::cout << "Publisher: " << publisher << std::endl;
-    std::cout << "Pages: " << pages_number << std::endl;
-
+float Book::get_avg_rating() const {
+    return avg_rating;
 }
 
-void Book::add_review(unsigned index, unsigned stars){
-    review_count++;
-    ratings_distr[stars-1]++;
+void Book::add_review(unsigned int index, unsigned int stars) {
     review_indexes.push_back(index);
+    ratings_distr[stars-1]++;
+    review_count++;
+    avg_rating = compute_rating();
+}
+
+float Book::compute_rating() {
+    float average = 0;
+
+    for (size_t i = 0; i < ratings_distr.size(); ++i)
+        average += (i+1) * ratings_distr[i];
+
+    return average/review_count;
+}
+
+string Book::to_string() const {
+
+    return title + " " + author + " " + publisher + " " + std::to_string(pages_number) + " " +
+           std::to_string(review_count) + " " + std::to_string(avg_rating);
+
+}
+
+vector<unsigned> Book::get_review_indexes() const {
+    return review_indexes;
+}
+
+string Book::get_title() const {
+    return title;
 }
