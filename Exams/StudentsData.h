@@ -7,6 +7,7 @@
 
 #include <vector>
 #include <string>
+#include <iostream>
 
 #include "Exam.h"
 
@@ -25,6 +26,10 @@ public:
     void add_exam(const Exam& e);
 
     float average_grade() const;
+    
+    void printstu() const;
+    
+    void printex() const;
 };
 
 
